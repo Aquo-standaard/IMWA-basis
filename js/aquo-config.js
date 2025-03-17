@@ -1,11 +1,7 @@
 // Dit bestand is gepubliceerd als aquo-config.js, voor hergebruik in ReSpec documenten.
 var organisationConfig = {
     nl_organisationName: "IHW Aquo",
-    // werkt nog niet 
-    // nl_organisationStylesURL: "https://.../respec/gn-algemeen/style/",
-    // nl_organisationStylesURL: "https://tools.geostandaarden.nl/respec/dso/style/",
-    // nl_organisationStylesURL: "https://tools.geostandaarden.nl/respec/bro/style/",
-    //nl_organisationPublishURL: "https://docs.geostandaarden.nl/",
+      
     logos: [{
         src: "https://data.aquo.nl/informatiemodel/publicatie/aquo_logo.svg",
         alt: "Aquo",
@@ -15,8 +11,6 @@ var organisationConfig = {
         url: "https://www.aquo.nl",
       }],
 	
-	postProcess: [window.respecMermaid.createFigures],
-
 	latestVersion: ["nl_organisationPublishURL", "pubDomain", "/", "shortName", "/"],
     thisVersion: ["nl_organisationPublishURL", "pubDomain", "/", "specStatus", "-", "specType", "-", "shortName", "-", "publishDate"],
     prevVersion: ["nl_organisationPublishURL", "pubDomain", "/", "previousMaturity", "-", "specType", "-", "shortName", "-", "previousPublishDate"],
@@ -32,8 +26,6 @@ var organisationConfig = {
             def: "Recommendation",
             ld: "Living document",
             basis: "Document",
-            //eo: "Outdated version",
-            //tg: "Rescinded version",
             no: "Norm",
             st: "Standard",
             im: "Information model",
@@ -51,8 +43,6 @@ var organisationConfig = {
             def: "Vastgestelde versie",
             ld: "Levend document",
             basis: "Document",
-            //eo: "Verouderde versie",
-            //tg: "Teruggetrokken versie",
             no: "Norm",
             st: "Standaard",
             im: "Informatiemodel",
@@ -96,18 +86,23 @@ var organisationConfig = {
     },
     
     licenses: {
-        cc0: {
-          name: "Creative Commons 0 Public Domain Dedication",
+        "cc0": {
+            name: "Creative Commons 0 Public Domain Dedication",
             short: "CC0",
             url: "https://creativecommons.org/publicdomain/zero/1.0/",
-            image:
-          "https://tools.geostandaarden.nl/respec/style/logos/CC-Licentie.svg",
+            image: "https://tools.geostandaarden.nl/respec/style/logos/CC-Licentie.svg",
         },
         "cc-by": {
-          name: "Creative Commons Attribution 4.0 International Public License",
+            name: "Creative Commons Attribution 4.0 International Public License",
             short: "CC-BY",
             url: "https://creativecommons.org/licenses/by/4.0/legalcode",
             image: "https://tools.geostandaarden.nl/respec/style/logos/cc-by.svg",
-        }
-      },
+        },
+        "cc-by-nd": {
+            name: "Creative Commons Naamsvermelding-GeenAfgeleideWerken 4.0 Internationaal",
+            short: "CC-BY-ND",
+            url: "https://creativecommons.org/licenses/by-nd/4.0/legalcode.nl",
+            image: "https://tools.geostandaarden.nl/respec/style/logos/cc-by-nd.svg",
+        },
+    },
 }
