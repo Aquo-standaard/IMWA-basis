@@ -1,0 +1,64 @@
+name: API Call en Bestand Opslaan
+
+on:
+  workflow_dispatch:  # Zorgt ervoor dat de workflow handmatig gestart kan worden
+
+jobs:
+  fetch-and-save:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: API Call uitvoeren - ObjectStatus ophalen
+        id: api_call_objectstatus
+        run: |
+          mkdir -p data/waardelijsten  # Zorg ervoor dat de directory bestaat
+          RESPONSE=$(curl -s -X GET "https://www.aquo.nl/index.php/Speciaal:Vragen" \
+            --get \
+            --data-urlencode "format=json" \
+            --data-urlencode "headers=show" \
+            --data-urlencode "sort=" \
+            --data-urlencode "order=asc" \
+            --data-urlencode "[[Categorie:Domeinwaarden]]" \
+            --data-urlencode "[[Breder::Id-0256a893-68f5-41e1-aac8-fc8cfa746382]]" \
+            --data-urlencode "[[Eind geldigheid::≥19 maart 2025]]" \
+            --data-urlencode "?Voorkeurslabel" \
+            --data-urlencode "?Id" \
+            --data-urlencode "?Codes" \
+            --data-urlencode "?Omschrijving")
+          echo "$RESPONSE" > data/waardelijsten/ObjectStatus.json
+
+      - name: API Call uitvoeren - Waterbeheerder ophalen
+        id: api_call_waterbeheerder
+        run: |
+          RESPONSE=$(curl -s -X GET "https://www.aquo.nl/index.php/Speciaal:Vragen" \
+            --get \
+            --data-urlencode "format=json" \
+            --data-urlencode "link=all" \
+            --data-urlencode "headers=show" \
+            --data-urlencode "sort=" \
+            --data-urlencode "order=asc" \
+            --data-urlencode "[[Categorie:Domeinwaarden]]" \
+            --data-urlencode "[[Breder::Id-52637750-d341-4a38-b80e-18e3442882a3]]" \
+            --data-urlencode "[[Eind geldigheid::≥19 maart 2025]]" \
+            --data-urlencode "?Voorkeurslabel" \
+            --data-urlencode "?Id" \
+            --data-urlencode "?Codes" \
+            --data-urlencode "?Omschrijving")
+          echo "$RESPONSE" > data/waardelijsten/Waterbeheerder.json
+
+      - name: Bestand Committen en Pushen
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/waardelijsten/ObjectStatus.json data/waardelijsten/Waterbeheerder.json
+          
+          # Controleer of er wijzigingen zijn
+          if git diff --cached --quiet; then
+            echo "Geen wijzigingen om te committen."
+          else
+            git commit -m "Automatische update vanuit API"
+            git push
+          fi
