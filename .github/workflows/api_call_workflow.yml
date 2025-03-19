@@ -18,15 +18,24 @@ jobs:
           RESPONSE=$(curl -s -X GET "https://www.aquo.nl/index.php/Speciaal:Vragen" \
             --get \
             --data-urlencode "format=json" \
+            --data-urlencode "limit=20" \
+            --data-urlencode "link=all" \
             --data-urlencode "headers=show" \
+            --data-urlencode "searchlabel=JSON" \
+            --data-urlencode "class=sortable-wikitable-smwtable" \
+            --data-urlencode "prefix=none" \
+            --data-urlencode "sort=" \
             --data-urlencode "order=asc" \
+            --data-urlencode "offset=0" \
             --data-urlencode "[[Categorie:Domeinwaarden]]" \
             --data-urlencode "[[Breder::Id-0256a893-68f5-41e1-aac8-fc8cfa746382]]" \
             --data-urlencode "[[Eind geldigheid::≥19 maart 2025]]" \
             --data-urlencode "?Voorkeurslabel" \
             --data-urlencode "?Id" \
             --data-urlencode "?Codes" \
-            --data-urlencode "?Omschrijving")
+            --data-urlencode "?Omschrijving" \
+            --data-urlencode "prettyprint=true" \
+            --data-urlencode "unescape=true")
           echo "$RESPONSE" > data/waardelijsten/ObjectStatus.json
 
       - name: API Call uitvoeren - Waterbeheerder ophalen
@@ -35,15 +44,24 @@ jobs:
           RESPONSE=$(curl -s -X GET "https://www.aquo.nl/index.php/Speciaal:Vragen" \
             --get \
             --data-urlencode "format=json" \
+            --data-urlencode "limit=20" \
+            --data-urlencode "link=all" \
             --data-urlencode "headers=show" \
+            --data-urlencode "searchlabel=JSON" \
+            --data-urlencode "class=sortable-wikitable-smwtable" \
+            --data-urlencode "prefix=none" \
+            --data-urlencode "sort=" \
             --data-urlencode "order=asc" \
+            --data-urlencode "offset=0" \
             --data-urlencode "[[Categorie:Domeinwaarden]]" \
             --data-urlencode "[[Breder::Id-52637750-d341-4a38-b80e-18e3442882a3]]" \
             --data-urlencode "[[Eind geldigheid::≥19 maart 2025]]" \
             --data-urlencode "?Voorkeurslabel" \
             --data-urlencode "?Id" \
             --data-urlencode "?Codes" \
-            --data-urlencode "?Omschrijving")
+            --data-urlencode "?Omschrijving" \
+            --data-urlencode "prettyprint=true" \
+            --data-urlencode "unescape=true")
           echo "$RESPONSE" > data/waardelijsten/Waterbeheerder.json
 
       - name: Bestand Committen en Pushen
